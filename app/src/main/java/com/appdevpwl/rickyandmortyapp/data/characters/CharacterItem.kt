@@ -1,6 +1,6 @@
 package com.appdevpwl.rickyandmortyapp.data.characters
 
-data class Characters(
+data class CharacterItem(
     val info: Info,
     val results: List<Result>
 )

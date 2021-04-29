@@ -13,13 +13,13 @@
 
     <fragment
         android:id="@+id/navigation_dashboard"
-        android:name="com.appdevpwl.rickyandmortyapp.ui.episodes.DashboardFragment"
+        android:name="com.appdevpwl.rickyandmortyapp.ui.episodes.EpisodesFragment"
         android:label="@string/title_episodes"
         tools:layout="@layout/fragment_episodes" />
 
     <fragment
         android:id="@+id/navigation_notifications"
-        android:name="com.appdevpwl.rickyandmortyapp.ui.locations.NotificationsFragment"
+        android:name="com.appdevpwl.rickyandmortyapp.ui.locations.LocationsFragment"
         android:label="@string/title_locations"
         tools:layout="@layout/fragment_locations" />
 </navigation>

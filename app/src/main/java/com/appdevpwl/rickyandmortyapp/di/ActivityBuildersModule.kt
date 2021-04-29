@@ -1,7 +1,7 @@
 package com.appdevpwl.rickyandmortyapp.di
 
 
-import com.appdevpwl.rickyandmortyapp.MainActivity
+import com.appdevpwl.rickyandmortyapp.ui.MainActivity
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 

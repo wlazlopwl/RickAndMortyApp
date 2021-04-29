@@ -1,4 +1,4 @@
-package com.appdevpwl.rickyandmortyapp.di
+package com.appdevpwl.spacex.di
 
 import androidx.lifecycle.ViewModel
 import dagger.MapKey

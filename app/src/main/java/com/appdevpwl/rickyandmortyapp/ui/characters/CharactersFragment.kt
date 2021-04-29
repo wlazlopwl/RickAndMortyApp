@@ -4,26 +4,35 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import com.appdevpwl.rickyandmortyapp.R
+import dagger.android.support.AndroidSupportInjection
+import dagger.android.support.DaggerFragment
+import javax.inject.Inject
 
-class CharactersFragment : Fragment() {
+class CharactersFragment : DaggerFragment() {
 
+    @Inject
+    lateinit var viewModelProvider: ViewModelProvider.Factory
     private lateinit var charactersViewModel: CharactersViewModel
 
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
+        AndroidSupportInjection.inject(this)
         charactersViewModel =
-                ViewModelProvider(this).get(CharactersViewModel::class.java)
+            ViewModelProviders.of(this, viewModelProvider).get(CharactersViewModel::class.java)
+
         val root = inflater.inflate(R.layout.fragment_characters, container, false)
-        charactersViewModel.text.observe(viewLifecycleOwner, Observer {
-        })
+
         return root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
+
     }
 }

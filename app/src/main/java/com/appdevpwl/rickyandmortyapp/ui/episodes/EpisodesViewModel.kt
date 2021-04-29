@@ -3,8 +3,9 @@ package com.appdevpwl.rickyandmortyapp.ui.episodes
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import javax.inject.Inject
 
-class DashboardViewModel : ViewModel() {
+class EpisodesViewModel @Inject constructor(): ViewModel() {
 
     private val _text = MutableLiveData<String>().apply {
         value = "This is dashboard Fragment"
