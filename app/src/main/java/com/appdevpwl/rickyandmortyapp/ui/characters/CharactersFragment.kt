@@ -4,11 +4,19 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.appdevpwl.rickyandmortyapp.R
+import com.appdevpwl.rickyandmortyapp.databinding.FragmentCharactersBinding
+import com.appdevpwl.rickyandmortyapp.ui.characters.adapter.CharactersAdapter
 import dagger.android.support.AndroidSupportInjection
 import dagger.android.support.DaggerFragment
+import kotlinx.android.synthetic.main.fragment_characters.*
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class CharactersFragment : DaggerFragment() {
@@ -16,6 +24,9 @@ class CharactersFragment : DaggerFragment() {
     @Inject
     lateinit var viewModelProvider: ViewModelProvider.Factory
     private lateinit var charactersViewModel: CharactersViewModel
+
+    private var _binding: FragmentCharactersBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -26,13 +37,36 @@ class CharactersFragment : DaggerFragment() {
         charactersViewModel =
             ViewModelProviders.of(this, viewModelProvider).get(CharactersViewModel::class.java)
 
-        val root = inflater.inflate(R.layout.fragment_characters, container, false)
+        _binding = DataBindingUtil.inflate(inflater, R.layout.fragment_characters, container, false)
 
-        return root
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
 
+        val characterAdapter = CharactersAdapter()
+
+        binding.charactersRecyclerview.apply {
+            layoutManager = LinearLayoutManager(context)
+            characters_recyclerview.setHasFixedSize(true)
+            adapter = characterAdapter
+
+
+        }
+
+
+        lifecycleScope.launch {
+            charactersViewModel.flow.collectLatest { pagingData ->
+                characterAdapter.submitData(pagingData)
+            }
+        }
+
+
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

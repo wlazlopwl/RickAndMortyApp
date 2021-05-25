@@ -2,7 +2,7 @@ package com.appdevpwl.rickyandmortyapp.data.characters
 
 data class Result(
     val created: String,
-    val episode: List<Any>,
+    val episode: List<String>,
     val gender: String,
     val id: Int,
     val image: String,
