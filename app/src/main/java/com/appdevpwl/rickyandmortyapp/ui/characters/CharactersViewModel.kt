@@ -29,7 +29,7 @@ class CharactersViewModel @Inject constructor(
 
 
     val flow = Pager(
-        PagingConfig(pageSize = 10)
+        PagingConfig(pageSize = 2)
     ) {
         CharactersPagingSource(service)
     }.flow

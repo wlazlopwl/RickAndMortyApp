@@ -3,4 +3,5 @@
     <string name="title_characters">Characters</string>
     <string name="title_episodes">Episodes</string>
     <string name="title_locations">Location</string>
+    <string name="load_state_retry">Retry</string>
 </resources>

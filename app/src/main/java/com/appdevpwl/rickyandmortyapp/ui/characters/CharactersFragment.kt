@@ -12,9 +12,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.appdevpwl.rickyandmortyapp.R
 import com.appdevpwl.rickyandmortyapp.databinding.FragmentCharactersBinding
 import com.appdevpwl.rickyandmortyapp.ui.characters.adapter.CharactersAdapter
+import com.appdevpwl.rickyandmortyapp.ui.characters.adapter.CharactersLoadStateAdapter
 import dagger.android.support.AndroidSupportInjection
 import dagger.android.support.DaggerFragment
-import kotlinx.android.synthetic.main.fragment_characters.*
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -47,10 +47,13 @@ class CharactersFragment : DaggerFragment() {
 
         val characterAdapter = CharactersAdapter()
 
-        binding.charactersRecyclerview.apply {
-            layoutManager = LinearLayoutManager(context)
-            characters_recyclerview.setHasFixedSize(true)
-            adapter = characterAdapter
+        binding.apply {
+            charactersRecyclerview.layoutManager = LinearLayoutManager(context)
+            charactersRecyclerview.setHasFixedSize(true)
+            charactersRecyclerview.adapter = characterAdapter.withLoadStateHeaderAndFooter(
+                header = CharactersLoadStateAdapter{characterAdapter.retry()},
+                footer = CharactersLoadStateAdapter{characterAdapter.retry()},
+            )
 
 
         }

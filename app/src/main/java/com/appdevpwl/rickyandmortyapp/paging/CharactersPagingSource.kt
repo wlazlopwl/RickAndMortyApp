@@ -18,7 +18,7 @@ class CharactersPagingSource @Inject constructor(private val service: Service) :
 
             LoadResult.Page(
                 data = data.orEmpty(),
-                prevKey = null,
+                prevKey = if (page == 1) null else (page - 1),
                 nextKey = page + 1
 
             )
@@ -30,8 +30,9 @@ class CharactersPagingSource @Inject constructor(private val service: Service) :
 
     }
 
-
     override fun getRefreshKey(state: PagingState<Int, Result>): Int? {
         return 1
     }
+
+
 }
