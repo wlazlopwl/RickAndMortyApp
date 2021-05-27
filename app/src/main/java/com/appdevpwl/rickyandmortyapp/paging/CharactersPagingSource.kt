@@ -4,6 +4,8 @@ import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.appdevpwl.rickyandmortyapp.api.Service
 import com.appdevpwl.rickyandmortyapp.data.characters.Result
+import retrofit2.HttpException
+import java.io.IOException
 import javax.inject.Inject
 
 class CharactersPagingSource @Inject constructor(private val service: Service) :
@@ -23,7 +25,9 @@ class CharactersPagingSource @Inject constructor(private val service: Service) :
 
             )
 
-        } catch (e: Exception) {
+        } catch (e: IOException) {
+            LoadResult.Error(e)
+        } catch (e: HttpException) {
             LoadResult.Error(e)
         }
 
@@ -31,7 +35,7 @@ class CharactersPagingSource @Inject constructor(private val service: Service) :
     }
 
     override fun getRefreshKey(state: PagingState<Int, Result>): Int? {
-        return 1
+        return state.anchorPosition
     }
 
 
